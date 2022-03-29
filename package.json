@@ -62,7 +62,7 @@
     "overriddenProperties": {
       "main": "app/index.html",
       "window": {
-        "title": "Uzurion update",
+        "title": "Claquetteria update",
         "width": 400,
         "height": 500,
         "frame": false,
@@ -87,7 +87,7 @@
     },
     "nsis": {
       "installDirectory": "$LOCALAPPDATA\\Programs\\${_COMPANYNAME}",
-      "diffUpdaters": false
+      "diffUpdaters": true
     }
   },
   "devDependencies": {
