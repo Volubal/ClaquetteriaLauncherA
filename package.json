@@ -1,12 +1,12 @@
 {
-  "name": "Uzurion-Launcher",
+  "name": "Claquetteria-Launcher",
   "version": "2.0.7",
-  "productName": "Uzurion Launcher",
+  "productName": "Claquetteria Launcher",
   "description": "Launcher Mincraft custom (crack, premium)",
   "main": "src/index.html",
   "author": "Luuxis",
   "window": {
-    "title": "Uzurion update",
+    "title": "Claquetteria update",
     "width": 400,
     "height": 500,
     "frame": false,
@@ -34,7 +34,7 @@
   },
   "license": "CC0",
   "build": {
-    "appId": "Uzurion Launcher",
+    "appId": "Claquetteria Launcher",
     "nwVersion": "0.60.0",
     "packed": true,
     "targets": [
@@ -73,16 +73,16 @@
     },
     "outputPattern": "${NAME}-${PLATFORM}",
     "win": {
-      "productName": "Uzurion Launcher",
-      "companyName": "Uzurion Launcher",
+      "productName": "Claquetteria Launcher",
+      "companyName": "Claquetteria Launcher",
       "copyright": "copyright",
       "icon": "src/assets/images/icons/icon.ico"
     },
     "mac": {
-      "displayName": "Uzurion-Launcher",
+      "displayName": "Claquetteria-Launcher",
       "copyright": "copyright",
       "plistStrings": {
-        "CFBundleIdentifier": "Uzurion-Launcher"
+        "CFBundleIdentifier": "Claquetteria-Launcher"
       }
     },
     "nsis": {
@@ -102,6 +102,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luuxis/Uzurion-Launcher.git"
+    "url": "git+https://github.com/Volubal/Claquetteria.git"
   }
 }
