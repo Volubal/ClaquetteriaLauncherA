@@ -4,7 +4,7 @@
   "online": true,
   "client_id": "",
   "game_version": "1.16.5",
-  "custom": false,
+  "custom": true,
   "verify": true,
   "java": true,
   "game_args": [],
