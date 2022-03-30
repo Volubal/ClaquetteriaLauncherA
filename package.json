@@ -1,10 +1,10 @@
 {
   "name": "Claquetteria-Launcher",
-  "version": "2.0.7",
+  "version": "0.0.1",
   "productName": "Claquetteria Launcher",
-  "description": "Launcher Mincraft custom (crack, premium)",
+  "description": "Launcher Mincraft custom (premium)",
   "main": "src/index.html",
-  "author": "Luuxis",
+  "author": "Volubal",
   "window": {
     "title": "Claquetteria update",
     "width": 400,
@@ -18,7 +18,7 @@
     "node": "16.x.x"
   },
   "chromium-args": "--enable-logging --v=1 --disable-gpu --mixed-content",
-  "url": "http://146.59.227.140",
+  "url": "http://requiredfiles.claquetteria.com",
   "user": "",
   "webkit": {
     "plugin": true

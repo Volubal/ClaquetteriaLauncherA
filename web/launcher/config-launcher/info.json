@@ -1,5 +1,5 @@
 {
-    "ip_server": "claquetteria.mine.gg",
-    "port": "10077",
-    "autoconnect": true
+    "ip_server": "join.claquetteria.com",
+    "port": "25686",
+    "autoconnect": false
 }
