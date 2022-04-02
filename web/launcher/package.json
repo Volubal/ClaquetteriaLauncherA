@@ -1,8 +1,8 @@
 {
-  "version": "1.0.1",
+  "version": "0.0.1",
   "packages": {
     "win64": {
-      "url": "https://launcher.webincloudy.fr/users/luuxis/launcher/launcher-download/Uzurion-Launcher-win.zip"
+      "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-win.zip"
     },
     "mac64": {
       "url": "https://launcher.webincloudy.fr/users/luuxis/launcher/launcher-download/Uzurion-Launcher-mac.zip"
