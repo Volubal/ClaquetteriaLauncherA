@@ -1,14 +1,14 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.4",
   "packages": {
     "win64": {
-      "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-win.zip"
+      "url": "http://requiredfiles.claquetteria.com/launcher/update-launcher/ClaquetteriaLauncher-win.zip"
     },
     "mac64": {
-      "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-mac.zip"
+      "url": "http://requiredfiles.claquetteria.com/launcher/update-launcher/ClaquetteriaLauncher-mac.zip"
     },
     "linux64": {
-      "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-linux.zip"
+      "url": "http://requiredfiles.claquetteria.com/launcher/update-launcher/ClaquetteriaLauncher-linux.zip"
     }
   }
 }
