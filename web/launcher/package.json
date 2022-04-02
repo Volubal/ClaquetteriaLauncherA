@@ -5,10 +5,10 @@
       "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-win.zip"
     },
     "mac64": {
-      "url": "https://launcher.webincloudy.fr/users/luuxis/launcher/launcher-download/Uzurion-Launcher-mac.zip"
+      "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-mac.zip"
     },
     "linux64": {
-      "url": "https://launcher.webincloudy.fr/users/luuxis/launcher/launcher-download/Uzurion-Launcher-linux.zip"
+      "url": "http://requiredfiles.claquetteria.com/LauncherWindows/ClaquetteriaLauncher-linux.zip"
     }
   }
 }
