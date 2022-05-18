@@ -1,6 +1,6 @@
 {
   "name": "ClaquetteriaLauncher",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "productName": "Claquetteria Launcher",
   "description": "Launcher Mincraft custom (premium)",
   "main": "src/index.html",

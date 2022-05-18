@@ -9,5 +9,5 @@
   "java": true,
   "game_args": [],
   "dataDirectory": ".claquetteria",
-  "ignored": ["config.json", "options.txt", "optionsof.txt", "resourcepacks", "crash-reports", "shaderpacks", "screenshots", "config"]
+  "ignored": ["config.json", "options.txt", "optionsof.txt", "resourcepacks", "crash-reports", "shaderpacks", "screenshots", "config", "shaderpacks"]
 }
