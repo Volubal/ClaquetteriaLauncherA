@@ -1,24 +1,33 @@
-<div class="container-home">
-    <div class="overlay">
-      <img class="user-head" src="https://mc-heads.net/avatar/c06f89064c8a49119c29ea1dbd1aab82/">
-      <button class="settings-btn icon-settings"></button>
+<div class="home-content">
+    <div class="bottom-bar-home">
+        <button class="player-head"></button>
+        <button class="settings-btn icon-settings"></button>
+
+        <div class="play-element">
+            <button class="play-btn">Jouer</button>
+            <div class="download-content">
+                <div class="text-download">Vérification</div>
+                <progress value="0" max="0" class="progress-bar"></progress>
+            </div>
+        </div>
     </div>
-
-    <div class="block-play">
-      <div class="player-connect-number">Ping du serveur Minecraft...</div>
-      <button class="play-btn">Jouer</button>
-      <div class="info-download">Vérification</div>
-      <progress value="0" max="0" class="progress-bar"></progress>
-    </div>
-
-
-    <div class="player-connect-head">
-      <div class="player-connect-head-text">joueur connecté</div>
-      <div class="player-connect">Ping du serveur Minecraft...</div>
-    </div>
-
-    <div class="news">
-      <div class="news-text">News du serveur</div>
-      <div class="container-news"></div>
+    
+    <div class="body-home">
+        <div class="news-list"></div>
+        <div class="info-list">
+            <div class="info-item">
+                <div class="server">
+                    <img class="server-img" src="assets/images/icon.png"/>
+                    <div class="server-text">
+                        <div class="name">Server titre...</div>
+                        <div class="desc"><span class="red">Fermé</span> - 0ms</div>
+                    </div>
+                    <div class="etat-text">
+                        <div class="text">0</div>
+                        <div class="online off"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

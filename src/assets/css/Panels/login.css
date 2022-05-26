@@ -1,140 +1,124 @@
-.uzurionAppGenHeader {
-  position: relative;
-  background-color: black;
-  height: 100vh;
-  min-height: 25rem;
-  width: 100%;
-  overflow: hidden;
-  display: none;
+.login-card {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    background: #121212;
+    padding: 20px;
+    font: normal normal bold 19px/29px Poppins;
+    color: #E1E1E1;
+    border-radius: 15px;
+    text-align: center;
 }
 
-.uzurionAppGenHeader video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: 0;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
+.login-type {
+    display: grid;
+    padding: 0 7%;
 }
 
-.uzurionAppGenHeader .container {
-  position: relative;
-  z-index: 2;
+.login-type-btn {
+    border-radius: 15px;
+    border: none;
+    margin: 2% 0;
+    height: 2em;
+    background-color: #00bd7a;
+    box-shadow: 0 0 5px #00bd7a;
+    color: #121212;
+    font: normal normal bold 19px/29px Poppins;
+    cursor: pointer;
 }
 
-.uzurionAppGenHeader .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-  opacity: 0.5;
-  z-index: 1;
+.login-type-btn:hover {
+    background-color: #006e47;
+    box-shadow: 0 0 5px #006e47;
 }
 
-.uzurionAppGenHeader {
-  background: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url("../../images/background/wallpaper.jpg") black no-repeat center center scroll;
+.login-type-btn:disabled {
+    background-color: #00bd7a;
+    box-shadow: 0 0 5px #00bd7a;
+    cursor: default;
 }
 
-.uzurionAppGenHeader video {
-  display: none;
+.login-type-btn:disabled:hover {
+    background-color: #00bd7a;
+    box-shadow: 0 0 5px #00bd7a;
 }
 
-.uzurionAppLoginLogo {
-  width: 30%!important;
-  margin-bottom: 50px;
+.login-card-mojang {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    background: #121212;
+    padding: 0 20px;
+    font: normal normal bold 19px/29px Poppins;
+    color: #E1E1E1;
+    border-radius: 15px;
+    display: none;
 }
 
-.uzurionAppLoginCard {
-  width: 460px;
-  background-color: #1F2022;
-  border: none;
-  border-radius: 10px;
+.card-body {
+    margin: 10%;
 }
 
-.uzurionAppLoginCardInformation {
-  font-size: 13px;
-  color: #F2F2F2;
+.login-card-mojang-input {
+    text-align: center;
+    display: grid;
 }
 
-.uzurionAppLoginCardInformationPassReset {
-  font-size: 13px;
-  color: #F2F2F2;
+.login-mojang-input {
+    font-family: 'Poppins';
+    letter-spacing: 2px;
+    color: #fff;
+    border: solid 0px rgba(0, 0, 0, 0);
+    border-radius: 30px;
+    background-color: #373737;
+    padding: 0.375rem 0.75rem;
 }
 
-.uzurionAppLoginCardLabel {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: #F2F2F2;
-  margin-bottom: 4px;
+.loginDisclaimerText {
+    text-align: center;
+    font-size: 0.5em;
 }
 
-.uzurionAppLoginCardInput {
-  font-weight: 700;
-  font-family: 'Roboto', sans-serif;
-  font-size: 13px;
-  letter-spacing: 2px;
-  color: #fff;
-  border: solid 0px rgba(0,0,0,0);
-  border-radius: 30px;
-  background-color: #373737;
-}
-.uzurionAppLoginCardInput:disabled {
-  background-color: #272727;
+.btn-option-login {
+    width: 100%;
+    display: grid;
+    text-align: center;
 }
 
-
-.uzurionAppLoginCardSubmit {
-  transition: all 0.25s ease;
-  background: linear-gradient(to right bottom, #54f659, #59e860, #5dda65, #61cd6a, #64bf6d);
-  padding: 10px 40px;
-  border-radius: 50px;
-  border: 0px solid rgba(0,0,0,0);
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: 2px;
+.login-btn {
+    border-radius: 15px;
+    border: none;
+    margin: 2% 0;
+    height: 2em;
+    background-color: #00bd7a;
+    box-shadow: 0 0 5px #00bd7a;
+    color: #121212;
+    font: normal normal bold 19px/29px Poppins;
+    cursor: pointer;
 }
 
-.uzurionAppLoginCardSubmit:hover {
-  background-image: linear-gradient(to right bottom, #54f659, #57eb5f, #5be064, #5ed669, #61cb6c);
+.login-btn:hover {
+    background-color: #006e47;
+    box-shadow: 0 0 5px #006e47;
 }
 
-.microsoft-btn {
-  background-color: transparent;
-  border: none;
+.cancel {
+    border: none;
+    background-color: #ffffff00;
+    color: #F1F1F1;
+    font: normal normal bold 19px/29px Poppins;
+    cursor: pointer;
 }
 
-.add-account-cancel {
-  right: 5%;
-  top: 82%;
-  position: absolute;
-  background-color: transparent;
-  border: none;
+.cancel:hover {
+    color: #373737;
 }
 
-.loginSpanDim {
-  color: white;
-  cursor: pointer;
-}
-.loginRemember {
-  cursor: pointer;
-}
-
-.loginSpanDim:hover {
-  color: rgb(82, 82, 82);
-}
-
-.store {
-  cursor: pointer;
-}
-.store:hover {
-  color: rgb(82, 82, 82);
+.cancel:hover:disabled {
+    color: #F1F1F1;
+    cursor: default;
 }

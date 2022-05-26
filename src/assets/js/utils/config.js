@@ -1,45 +1,34 @@
-const pkg = require("../../../../package.json");
+const pkg = nw.global.manifest.__nwjs_manifest;
 const fetch = require("node-fetch")
-if((pkg.user) === undefined || (pkg.user) === ""){
-    var url = pkg.url
-} else {
-    var url = pkg.url + "/" + pkg.user
-}
-const config = url + "/launcher/config-launcher/config.json";
-const info = url + "/launcher/config-launcher/info.json";
-const news = url + "/launcher/news-launcher/news-launcher.json";
+let url = pkg.user ? `${pkg.url}/${pkg.user}` : pkg.url
 
-module.exports.config = getData;
+let config = `${url}/launcher/config-launcher/config.json`;
+let news = `${url}/launcher/news-launcher/assets/php/news/GetNews.php`;
 
-function getData() {
-    return new Promise((resolve, reject) => {
-        fetch(config).then(config => {
-            return resolve(config.json());
-        }).catch(error => {
-            return reject(error);
+class Config {
+    GetConfig() {
+        return new Promise((resolve, reject) => {
+            fetch(config).then(config => {
+                return resolve(config.json());
+            }).catch(error => {
+                return reject(error);
+            })
         })
-    })
+    }
+
+    async GetNews() {
+        let rss = await fetch(news);
+        if (rss.status === 200) {
+            try {
+                let news = await rss.json();
+                return news;
+            } catch (error) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
 
-module.exports.info = getInfo;
-function getInfo() {
-    return new Promise((resolve, reject) => {
-        fetch(info).then(info => {
-            return resolve(info.json());
-        }).catch(error => {
-            return reject(error);
-        })
-    })
-}
-
-module.exports.news = getNews;
-
-function getNews() {
-    return new Promise((resolve, reject) => {
-        fetch(news, {cache: "no-cache"}).then(config => {
-            return resolve(config.json());
-        }).catch(error => {
-            return reject(error);
-        })
-    })
-}
+export default new Config;

@@ -1,184 +1,151 @@
-/**
-* Classe slider : permet de créer un slider à deux valeurs (utile pour créer des bornes)
-* @author LoganTann, Luuxis
-*/
-module.exports = class Slider {
-	/*
-	### Variables ###
-	*/
+'use strict';
 
-	// stockage du container et des elems enfants & tailles utiles
-	container = null;
-	elem = {};
-	size = {};
+class Slider {
+    constructor(id, minValue, maxValue) {
+        this.startX = 0;
+        this.x = 0;
 
-	/**
-	* indique si un slider est actuellement en mouvement.
-	* Valeurs possibles : false | "start" | "end"
-	*/
-	moving = false;
+        this.slider = document.querySelector(id);
+        this.touchLeft = this.slider.querySelector('.slider-touch-left');
+        this.touchRight = this.slider.querySelector('.slider-touch-right');
+        this.lineSpan = this.slider.querySelector('.slider-line span');
 
-	/** paramètres originaux passés en option */
-	range = { max: 0, min: 100, defaultMin: 0, defaultMax: 100};
+        this.min = parseFloat(this.slider.getAttribute('min'));
+        this.max = parseFloat(this.slider.getAttribute('max'));
 
-	/** variables d'état.
-	* left/right = offset des curseurs en px
-	* outStart/outEnd = valeur réelle des curseurs
-	*/
-	selection = { left: false, right: false, outStart: 0, outEnd: 0 };
+        if (!minValue) minValue = this.min;
+        if (!maxValue) maxValue = this.max;
 
-	/*
-	### Fonctions utilitaires ###
-	*/
+        this.minValue = minValue;
+        this.maxValue = maxValue;
 
-	/** Normalise une valeurs en MB */
-	static MbToRoundedGb(floatMB) {
-		const intGB = Math.floor(floatMB/256) * 0.25;
-		const intMB= intGB * 1024;
-		return {
-			MB: intMB,
-			GB: `${intGB.toFixed(2)} GB`
-		}
-	}
+        this.step = parseFloat(this.slider.getAttribute('step'));
 
-	/** convertis une valeur réelle en position des sliders (px) */
-	initSelection() {
-		const ratio = this.size.width / (this.range.max - this.range.min);
-		this.selection.left = (this.range.defaultMin - this.range.min) * ratio;
-		this.selection.right = (this.range.max - this.range.defaultMax) * ratio;
-	}
+        this.normalizeFact = 18;
 
-	/*
-	### Méthodes ###
-	*/
+        this.reset();
 
-	/**
-	* Fabrique une instance d'un unique slider.
-	* Usage : const instance = new slider(document.getElementById("identifiant"));
-	* @param container : un Element HTML
-	*/
-	constructor(container, options) {
-		// récupération des paramètres
-		if (!(options.range[0] && options.range[1])) {
-			throw "Slider: Paramètres d'option min et max sont obligatoires.";
-		}
-		options.value[0] = options.value[0] || options.range[0];
-		options.value[1] = options.value[1] || options.range[1];
-		if (options.range[0] > options.value[0] || options.value[0] > options.value[1] || options.value[1] > options.range[1]) {
-			throw "Options invalides (doivent être des nombres où min < defaultMin < defaultMax < max), donné " + JSON.stringify(options);
-		}
-		this.range = {min: options.range[0], max: options.range[1], defaultMin: options.value[0], defaultMax: options.value[1]};
-		let window = nw.Window.get().window;
-		// stockage et génération des éléments html du slider
-		this.container = container;
-		this.elem.selected = document.createElement("div");
-		this.elem.start = document.createElement("button");
-		this.elem.end = document.createElement("button");
-		for (let childClass in this.elem) {
-			this.elem[childClass].classList.add(childClass);
-			container.append(this.elem[childClass]);
-		}
+        this.maxX = this.slider.offsetWidth - this.touchRight.offsetWidth;
+        this.selectedTouch = null;
+        this.initialValue = this.lineSpan.offsetWidth - this.normalizeFact;
 
-		// registration des évènements
-		const me = this;
-		const ondrag = this.startDrag.bind(this);
-		const onleave = this.stopDrag.bind(this);
-		const onmove = function (e) {
-			window.requestAnimationFrame(function () {
-				me.moveDrag.bind(me)(e);
-			});
-		};
-		this.elem.start.addEventListener("mousedown", ondrag);
-		this.elem.end.addEventListener("mousedown",   ondrag);
-		this.container.addEventListener("mousemove", onmove);
-		window.addEventListener("mouseup",    onleave);
-		window.addEventListener("mouseleave", onleave);
-		window.addEventListener("resize", function () {
-			window.requestAnimationFrame(me.onresize.bind(me));
-		});
+        this.setMinValue(this.minValue);
+        this.setMaxValue(this.maxValue);
 
-		// mise à jour de l'affichage
-		this.onresize();
-	}
+        this.touchLeft.addEventListener('mousedown', (event) => { this.onStart(event.path[1], event) });
+        this.touchRight.addEventListener('mousedown', (event) => { this.onStart(event.path[1], event) });
+        this.touchLeft.addEventListener('touchstart', (event) => { this.onStart(event.path[1], event) });
+        this.touchRight.addEventListener('touchstart', (event) => { this.onStart(event.path[1], event) });
+    }
 
-	/**
-	* Récupère la valeur du slider
-	* @return {from: number, to: number} avec .from = valeur début, .to = valeur fin
-	*/
-	val() {
-		return [
-			Slider.MbToRoundedGb(this.selection.outStart).MB,
-			Slider.MbToRoundedGb(this.selection.outEnd).MB
-		];
-	}
+    reset() {
+        this.touchLeft.style.left = '0px';
+        this.touchRight.style.left = (this.slider.offsetWidth - this.touchLeft.offsetWidth) + 'px';
+        this.lineSpan.style.marginLeft = '0px';
+        this.lineSpan.style.width = (this.slider.offsetWidth - this.touchLeft.offsetWidth) + 'px';
+        this.startX = 0;
+        this.x = 0;
+    }
 
-	/**
-	* Méthode appelée lorsque les positions du slider en mémoire doivent être appliquées sur l'écran
-	*/
-	updatePositions() {
-		// un peu de magie avec les maths
-		this.selection.outStart = ((this.range.max - this.range.min) * this.selection.left / this.size.width) + this.range.min;
-		this.selection.outEnd = ((this.range.max - this.range.min) * (this.size.width - this.selection.right) / this.size.width) + this.range.min;
+    setMinValue(minValue) {
+        let ratio = (minValue - this.min) / (this.max - this.min);
+        this.touchLeft.style.left = Math.ceil(ratio * (this.slider.offsetWidth - (this.touchLeft.offsetWidth + this.normalizeFact))) + 'px';
+        this.lineSpan.style.marginLeft = this.touchLeft.offsetLeft + 'px';
+        this.lineSpan.style.width = (this.touchRight.offsetLeft - this.touchLeft.offsetLeft) + 'px';
+    }
 
-		// actualisation des attributs
-		this.elem.start.style.left = `${this.selection.left}px`;
-		this.elem.end.style.right = `${this.selection.right}px`;
-		this.elem.selected.style.left = `${this.selection.left + 3}px`;
-		this.elem.selected.style.width = `${this.size.width - this.selection.right - this.selection.left - 6}px`;
+    setMaxValue(maxValue) {
+        var ratio = (maxValue - this.min) / (this.max - this.min);
+        this.touchRight.style.left = Math.ceil(ratio * (this.slider.offsetWidth - (this.touchLeft.offsetWidth + this.normalizeFact)) + this.normalizeFact) + 'px';
+        this.lineSpan.style.marginLeft = this.touchLeft.offsetLeft + 'px';
+        this.lineSpan.style.width = (this.touchRight.offsetLeft - this.touchLeft.offsetLeft) + 'px';
+    }
 
-		this.elem.start.dataset.val = Slider.MbToRoundedGb(this.selection.outStart).GB;
-		this.elem.end.dataset.val = Slider.MbToRoundedGb(this.selection.outEnd).GB;
-	}
+    onStart(elem, event) {
+        event.preventDefault();
 
-	// fonctions d'event -----------
+        if (elem === this.touchLeft)
+            this.x = this.touchLeft.offsetLeft;
+        else
+            this.x = this.touchRight.offsetLeft;
 
+        this.startX = event.pageX - this.x;
+        this.selectedTouch = elem;
 
-	/**
-	* appelé lorsque la fenêtre change de taille, mais peut aussi servir pour forcer la mise à jour du slider
-	*/
-	onresize() {
-		if (!(this.elem.start instanceof Element)) return;
-		let bounds = this.container.getBoundingClientRect();
-		this.size = {
-			width: bounds.width,
-			xpos: bounds.left,
-			xend: bounds.right,
-			ypos: bounds.top,
-			btnWidth: this.elem.end.getBoundingClientRect().width
-		};
-		if (!(this.selection.left && this.selection.right)) this.initSelection();
-		this.updatePositions();
-	}
+        let self = this;
+        this.func1 = (event) => { this.onMove(event) };
+        this.func2 = (event) => { this.onStop(event) };
 
-	/**
-	* Méthode appelée lorsqu'un slider reçois le clic
-	*/
-	startDrag(e) {
-		this.moving = e.target.classList.contains("start") ? "start" : "end";
-		this.elem[this.moving].classList.add("moving");
-	}
-	/**
-	* Méthode appelée lorsqu'un slider a vu son clic relaché, ou bien que le pointeur a quitté la zone du slider
-	*/
-	stopDrag(e) {
-		if (!this.moving) {
-			return;
-		}
-		this.elem[this.moving].classList.remove("moving");
-		this.moving = false;
-	}
-	/**
-	* Méthode appelée lorsque la souris bouge alors qu'un slider est en mouvement (ie. lorsque le slider est déplacé)
-	*/
-	moveDrag(e) {
-		if (!this.moving) return;
-		const curr = this.moving === "start" ? "left" : "right";
-		const pos = (curr === "left") ? (e.clientX - this.size.xpos) : (this.size.xend - e.clientX);
-		this.selection[curr] = Math.min(
-			pos - (this.size.btnWidth * 0.5),
-			this.size.width - this.selection[this.moving === "start" ? "right" : "left"] - (this.size.btnWidth * 2.2)
-		);
-		if (this.selection[curr] < 0) this.selection[curr] = 0;
-		return this.updatePositions();
-	}
+        document.addEventListener('mousemove', this.func1);
+        document.addEventListener('mouseup', this.func2);
+        document.addEventListener('touchmove', this.func1);
+        document.addEventListener('touchend', this.func2);
+    }
+
+    onMove(event) {
+        this.x = event.pageX - this.startX;
+
+        if (this.selectedTouch === this.touchLeft) {
+            if (this.x > this.touchRight.offsetLeft - this.selectedTouch.offsetWidth - 24)
+                this.x = this.touchRight.offsetLeft - this.selectedTouch.offsetWidth - 24;
+            else if (this.x < 0)
+                this.x = 0;
+
+            this.selectedTouch.style.left = this.x + 'px';
+        } else if (this.selectedTouch === this.touchRight) {
+            if (this.x < this.touchLeft.offsetLeft + this.touchLeft.offsetWidth + 24) {
+                this.x = this.touchLeft.offsetLeft + this.touchLeft.offsetWidth + 24;
+            } else if (this.x > this.maxX)
+                this.x = this.maxX;
+
+            this.selectedTouch.style.left = this.x + 'px';
+        }
+
+        this.lineSpan.style.marginLeft = this.touchLeft.offsetLeft + 'px';
+        this.lineSpan.style.width = this.touchRight.offsetLeft - this.touchLeft.offsetLeft + 'px';
+
+        this.calculateValue();
+    }
+
+    onStop(self, event) {
+        document.removeEventListener('mousemove', this.func1);
+        document.removeEventListener('mouseup', this.func2);
+        document.removeEventListener('touchmove', this.func1);
+        document.removeEventListener('touchend', this.func2);
+
+        this.selectedTouch = null;
+
+        this.calculateValue();
+    }
+
+    calculateValue() {
+        let newValue = (this.lineSpan.offsetWidth - this.normalizeFact) / this.initialValue;
+        let minValue = this.lineSpan.offsetLeft / this.initialValue;
+        let maxValue = minValue + newValue;
+
+        minValue = minValue * (this.max - this.min) + this.min;
+        maxValue = maxValue * (this.max - this.min) + this.min;
+
+        if (this.step != 0.0) {
+            let multi = Math.floor(minValue / this.step);
+            this.minValue = this.step * multi;
+
+            multi = Math.floor(maxValue / this.step);
+            this.maxValue = this.step * multi;
+        }
+
+        this.emit('change', this.minValue, this.maxValue);
+    }
+
+    func = [];
+
+    on(name, func) {
+        this.func[name] = func;
+    }
+
+    emit(name, ...args) {
+        if (this.func[name]) this.func[name](...args);
+    }
 }
+
+export default Slider;
