@@ -18,7 +18,7 @@
         "node": "16.x.x"
     },
     "chromium-args": "--enable-logging --v=1",
-    "url": "http://launcher.selvania.fr",
+    "url": "http://requiredfiles.claquetteria.com",
     "user": false,
     "webkit": {
         "plugin": true
