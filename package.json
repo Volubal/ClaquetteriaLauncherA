@@ -1,12 +1,12 @@
 {
-    "name": "Selvania-Launcher",
-    "version": "3.0.0-pre.2",
-    "productName": "Selvania Launcher",
-    "description": "Launcher Mincraft custom (crack, premium)",
+    "name": "Claquetteria-Launcher",
+    "version": "1.0.1",
+    "productName": "Claquetteria Launcher",
+    "description": "Launcher Claquetteria custom (premium)",
     "main": "src/index.html",
-    "author": "Luuxis",
+    "author": "Volubal",
     "window": {
-        "title": "Selvania update",
+        "title": "Claquetteria update",
         "width": 400,
         "height": 500,
         "frame": false,
@@ -34,7 +34,7 @@
     },
     "license": "CC0",
     "build": {
-        "appId": "Selvania Launcher",
+        "appId": "Claquetteria Launcher",
         "nwVersion": "0.64.1",
         "packed": false,
         "args": ["--user-data-dir=./AppData/launcher data"],
@@ -71,16 +71,16 @@
         },
         "outputPattern": "${NAME}-${PLATFORM}-${ARCH}",
         "win": {
-            "productName": "Selvania Launcher",
-            "companyName": "Selvania Launcher",
+            "productName": "Claquetteria Launcher",
+            "companyName": "Claquetteria Launcher",
             "copyright": "copyright",
             "icon": "src/assets/images/icon.ico"
         },
         "mac": {
-            "displayName": "Selvania-Launcher",
+            "displayName": "Claquetteria-Launcher",
             "copyright": "copyright",
             "plistStrings": {
-                "CFBundleIdentifier": "Selvania-Launcher"
+                "CFBundleIdentifier": "Claquetteria-Launcher"
             }
         },
         "nsis": {
