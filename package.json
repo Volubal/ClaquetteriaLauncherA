@@ -6,7 +6,7 @@
     "main": "src/index.html",
     "author": "Volubal",
     "window": {
-        "title": "Claquetterie update",
+        "title": "Claquetteria update",
         "width": 400,
         "height": 500,
         "frame": false,
