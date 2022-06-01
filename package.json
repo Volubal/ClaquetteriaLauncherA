@@ -1,6 +1,6 @@
 {
     "name": "Claquetteria-Launcher",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "productName": "Claquetteria Launcher",
     "description": "Launcher Claquetteria custom (premium)",
     "main": "src/index.html",
