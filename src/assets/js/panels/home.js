@@ -68,12 +68,12 @@ class Home {
             blockNews.innerHTML = `
                 <div class="news-header">
                     <div class="header-text">
-                        <div class="title">Error.</div>
+                        <div class="title">Non disponible</div>
                     </div>
                 </div>
                 <div class="news-content">
                     <div class="bbWrapper">
-                        <p>Impossible de contacter le serveur des news.</br>Merci de vérifier votre configuration.</p>
+                        <p>Les serveurs de News sont en court de dévloppement.</br>Merci de ne pas contacter le staff si vous voyez ceci.</p>
                     </div>
                 </div>`
             news.appendChild(blockNews);
