@@ -1,6 +1,6 @@
 {
     "name": "Claquetteria-Launcher",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "productName": "Claquetteria Launcher",
     "description": "Launcher Claquetteria custom (premium)",
     "main": "src/index.html",
@@ -60,7 +60,7 @@
         "overriddenProperties": {
             "main": "app/index.html",
             "window": {
-                "title": "Selvania update",
+                "title": "Claquetteria update",
                 "width": 400,
                 "height": 500,
                 "frame": false,
